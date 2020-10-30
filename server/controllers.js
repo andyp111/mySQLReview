@@ -1,11 +1,23 @@
+const dbHelpers = require('../database/dbHelpers');
 
 module.exports = {
   get: (req, res) => {
-    console.log(req.body)
-    res.send('Hello World')
+    dbHelpers.get((error, result) => {
+      if (error) {
+        res.status(400).send(error);
+      } else {
+        res.status(200).send(result);
+      }
+    })
   },
 
   post: (req, res) => {
-    res.send(`Hi, sending post request`)
+    dbHelpers.post(req, (error, result) => {
+      if (error) {
+        res.status(400).send(error);
+      } else {
+        res.status(200).send(result);
+      }
+    })
   }
 }
